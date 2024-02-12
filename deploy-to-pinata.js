@@ -4,13 +4,13 @@ const fs = require('fs');
 
 const pinFileToIPFS = async () => {
     const formData = new FormData();
-    const src = "chaton.png"; // This should be dynamically set based on your build output
+    const src = "Chaton.jpeg"; // This should be dynamically set based on your build output
     
     const file = fs.createReadStream(src);
     formData.append('file', file);
     
     const pinataMetadata = JSON.stringify({
-        name: 'File name', // This should be the name of your pin, you can make this dynamic too
+        name: 'Chaton', // This should be the name of your pin, you can make this dynamic too
     });
     formData.append('pinataMetadata', pinataMetadata);
     
