@@ -1,0 +1,30 @@
+name: Deploy Website to IPFS
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow when a push to the main branch occurs.
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # The type of machine to run the job on.
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2  # Checks-out your repository.
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'  # Sets up the Node.js version to use.
+
+      - name: Install Dependencies
+        run: npm install  # Install any dependencies your project may have.
+
+      - name: Build Website
+        run: npm run build  # Run the build process for your website.
+
+      - name: Deploy to Pinata
+        env:
+          JWT: ${{ secrets.JWT }}  # Use the secret stored in GitHub Secrets.
+        run: node -e 'require("./deploy-to-pinata").pinFileToIPFS()'  # Execute your deployment script.
